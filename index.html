@@ -4,92 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AudioSpectrum in JavaScript</title>
+    <title>AudioSpectrum</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <br>
     <br>
     <div class="container heading" style="border-bottom-width:.1px;">
         <h5><img src="profile-picture.png" width=4%> Sample 1</h5>
     </div>
     <div class="container border hero">
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
             <!-- Create a div where the audio waves will be shown-->
-            <div class="col-sm-1 btn-wrapper">
+                <div class="col-sm-1 btn-wrapper">
                     <button type="button" class="btn btn-xl btn-orange btn-circle toggler" id="btn-play" value="Play" onclick="Spectrum.playPause();">
-                        <i class="fa fa-play"></i>
+                        <i class="fa fa-play" id="icon"></i>
                     </button>
                 </div>
-            <div class="col-sm-10" id="audio-spectrum"></div>
-            <div class="col-sm-1" id="audio-time">0.0</div>
-            
+                <div class="col-sm-10" id="audio-spectrum"></div>
+                <div class="col-sm-1" id="audio-time"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div id="wave-spectrogram"></div>
+                </div>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class='ptext'>
-            <p>Tuned_male_Voice</p>
+        
+        <br>
+        <div class="container">
+            <div class='ptext'>
+                <p>Tuned_male_Voice</p>
+            </div>
         </div>
-    </div>
-</div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.3.7/wavesurfer.min.js"></script>
-
-    <script>
-
-        // Create an instance of wave surfer with its configuration
-        var Spectrum = WaveSurfer.create({
-            container: '#audio-spectrum',
-            //waveColor: 'purple',
-            //progressColor: "#03a9f4"
-            progressColor: 'lightseagreen',
-            barWidth: 3.8,
-            barHeight: 1.7,
-            hideScrollbar: true,
-            cursorWidth:0,
-            //fillParent : 'true'
-        });    
-
-    
-        // If you want a responsive mode (so when the user resizes the window)
-        // the spectrum will be still playable
-        window.addEventListener("resize", function(){
-            // Get the current progress according to the cursor position
-            var currentProgress = Spectrum.getCurrentTime() / Spectrum.getDuration();
-
-            // Reset graph
-            Spectrum.empty();
-            Spectrum.drawBuffer();
-            // Set original position
-            Spectrum.seekTo(currentProgress);
-
-        });
-                
-        // Load the audio file from your domain!
-        Spectrum.load('step-13000-audio.wav');
-        
-        Spectrum.on('audioprocess', function() {
-            if(Spectrum.isPlaying()) {
-                var totalTime = Spectrum.getDuration(),
-                currentTime = Spectrum.getCurrentTime(),
-                remainingTime = totalTime - currentTime;
-
-                document.getElementById('audio-time').innerText = currentTime.toFixed(1);
-
-            } 
-        })
-        
-    </script>
-        
-    
+    </div>   
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.3.7/wavesurfer.min.js"></script>
+    <script src="spectogram.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
